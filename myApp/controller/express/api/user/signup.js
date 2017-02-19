@@ -68,6 +68,21 @@ router.post('/', function (req, res) {
         user_age: req.body.age,
     };
 
+    //password=receive; //값 넘겨받기
+    var mailOptions = {
+        from: '[1gong]<random>',
+        to: email,
+        subject: '1gong 가입을 축하드립니다!',
+        // text: '평문 보내기 테스트 '
+        html:'<p><span style=" font: italic bold 1.5em/1em Georgia, serif ;">안녕하세요, 고객님</span></p>'+
+        '<p><span style=" font: italic bold 1.5em/1em Georgia, serif ;">뉴스추천 서비스 가입을 축하드립니다!</span></p>' +
+        '<p><span style=" font: italic bold 1.5em/1em Georgia, serif ;">서비스를 이용하시려면 아래 링크를 누르세요.</span></p>'+
+        '<p><span style=" font: italic bold 1.5em/1em Georgia, serif ;"><a href="http://siya.co.kr:27018/">뉴스추천서비스 바로가기</a></span></p>'//이메일 첫줄
+        //+ ' <a href="https://member.daum.net/find/password.do?action=daumid-check">이메일 주소를 인증합니다.</a> <p>'  //넘어갈 페이지 링크
+        //+'<video src="https://www.tesla.com/sites/default/files/videos/model3/HERO_15s_WEB.mp4?20161116" controls="controls" width="800" height="600" autoplay=""autoplay></video>' //동영상
+        // +'<img src="https://www.tesla.com/tesla_theme/assets/img/models/section-hero-background@2x.jpg?20170115  width="400" height="300"/></p>' //이미지
+    };
+
     req.sql('INSERT INTO user SET ?;', posts, function (err) {
         if (err) {
             req.sql('SELECT * FROM user WHERE email=?;', posts.email, function (err, rows) {
@@ -82,22 +97,22 @@ router.post('/', function (req, res) {
             return;
         }
 
-        //password=receive; //값 넘겨받기
-        var mailOptions = {
-            from: '[1gong]<random>',
+        req.sendmail({
             to: email,
-            subject: '1gong 가입을 축하드립니다!',
-            // text: '평문 보내기 테스트 '
-            html:'<p><span style=" font: italic bold 1.5em/1em Georgia, serif ;">안녕하세요, 고객님</span></p>'+
-            '<p><span style=" font: italic bold 1.5em/1em Georgia, serif ;">뉴스추천 서비스 가입을 축하드립니다!</span></p>' +
-            '<p><span style=" font: italic bold 1.5em/1em Georgia, serif ;">서비스를 이용하시려면 아래 링크를 누르세요.</span></p>'+
-            '<p><span style=" font: italic bold 1.5em/1em Georgia, serif ;"><a href="http://siya.co.kr:27018/">뉴스추천서비스 바로가기</a></span></p>'//이메일 첫줄
-            //+ ' <a href="https://member.daum.net/find/password.do?action=daumid-check">이메일 주소를 인증합니다.</a> <p>'  //넘어갈 페이지 링크
-            //+'<video src="https://www.tesla.com/sites/default/files/videos/model3/HERO_15s_WEB.mp4?20161116" controls="controls" width="800" height="600" autoplay=""autoplay></video>' //동영상
-            // +'<img src="https://www.tesla.com/tesla_theme/assets/img/models/section-hero-background@2x.jpg?20170115  width="400" height="300"/></p>' //이미지
-        };
+            subject: jade.language['emailformat-signup-title'],
+            html: html,
+            callback: function (err) {
+                if (err) {
+                    res.send({status: false, code: 1, err: err, msg: '서버 장애입니다.'});
+                    return;
+                }
+
+                res.send({status: true});
+            }
+        });
     });
 });
+
 
 
 router.get("/verify", function (req, res, next) {
