@@ -1,0 +1,86 @@
+.wrapper {
+  min-width: 250px;
+  max-width : 800px;
+  padding: 10px;
+  padding-bottom: 0;
+
+  image, img{
+    display: block;
+    width : 80%;
+    height : auto;
+    margin : auto;
+    margin-top : 10px;
+    margin-bottom : 10px;
+  }
+
+  hr {
+    margin: 0;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .info {
+    margin-top : 10px;
+    width: 100%;
+    text-align: right;
+
+    .time{
+      padding-right : 20px;
+      margin-top : -40px;
+    }
+    .delete {
+      display: inline-flex;
+      margin-right: 5px;
+      color: #A00;
+    }
+    h6{
+      padding : 0;
+      display: inline-flex;
+    }
+  }
+
+  .comment {
+    .comment-wrapper{
+      margin-top : 10px;
+      .icon {
+        padding-left: 20px;
+        margin-right: 10px;
+      }
+      .delete {
+        margin-left: 10px;
+        color: #A00;
+      }
+      .name {
+        color: #000;
+      }
+    }
+    h1, h2, h3, h4, h5, h6 {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    h6 {
+      color : #555;
+      margin-top: 0;
+    }
+    label {
+      width: 75px;
+      height: 20px;
+      font-size: 14px;
+      text-align: center;
+      padding-right: 5px;
+      margin: 0;
+    }
+    textarea, input {
+      width: calc(~"100% - 95px");
+      padding-left: 5px;
+      border: none;
+      border-left: solid #DDD 1px;
+      resize: none;
+    }
+  }
+}
+
+.md-dialog-is-showing {
+  max-height: none;
+}

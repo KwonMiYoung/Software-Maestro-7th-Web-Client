@@ -1,0 +1,60 @@
+doctype html
+html(ng-app="app")
+    head
+        include components/jade/header
+        script(src="{$ROOT}/view/js/index.js")
+        link(rel="stylesheet", href="{$ROOT}/view/css/index.css")
+
+    body(ng-controller='ctrl', resize)
+        .nav#nav
+            .top-nav
+                span(ng-click='click.changeLang(kind)', ng-repeat='kind in lang.kind track by $index') {{kind}}
+
+
+            .title(ng-click='click.test()') {{lang.company[lang.lang]}}
+
+            .middle-nav#subnav
+                .sub-nav(ng-repeat='item in subnav.data track by $index') {{item[lang.lang]}}
+
+            .bottom-nav {{lang.copyright[lang.lang]}}
+
+        .admin-action-bar
+            .left
+            .right.margin-left-10(ng-if='session.user', ng-click='click.write($event)')
+                i.fa.fa-pencil-square-o
+                | &nbsp; 글쓰기
+            .right.margin-left-10(ng-if='session.user', ng-click='click.signout($event)')
+                i.fa.fa-sign-out
+                | &nbsp; 로그아웃
+            .right.margin-left-10(ng-if='session.user == undefined', ng-click='click.signin($event)')
+                i.fa.fa-sign-in
+                | &nbsp; 로그인
+            .right.margin-left-10(ng-click='click.addCategory($event)')
+                i.fa.fa-th-list
+                | &nbsp; 레이아웃 변경
+        .main
+            .row
+                .col-lg-4.col-md-6
+                    .category(ng-if='$index % responseListColumn == 0', ng-repeat='data in categorylist track by $index', ng-click='click.dialogOpen($event, data)')
+                        .category-image(ng-if='data.post_images')
+                            img(ng-src='{{data.post_images}}')
+                        .category-name {{data.category_id}}
+                        .category-line
+                        .category-title {{data.post_title}}
+                        .category-content(ng-bind-html='trustedHtml(data.post_content)')
+                .col-lg-4.col-md-6
+                    .category(ng-if='$index % responseListColumn == 1', ng-repeat='data in categorylist track by $index', ng-click='click.dialogOpen($event, data)')
+                        .category-image(ng-if='data.post_images')
+                            img(ng-src='{{data.post_images}}')
+                        .category-name {{data.category_id}}
+                        .category-line
+                        .category-title {{data.post_title}}
+                        .category-content(ng-bind-html='trustedHtml(data.post_content)')
+                .col-lg-4.col-md-6
+                    .category(ng-if='$index % responseListColumn == 2', ng-repeat='data in categorylist track by $index', ng-click='click.dialogOpen($event, data)')
+                        .category-image(ng-if='data.post_images')
+                            img(ng-src='{{data.post_images}}')
+                        .category-name {{data.category_id}}
+                        .category-line
+                        .category-title {{data.post_title}}
+                        .category-content(ng-bind-html='trustedHtml(data.post_content)')

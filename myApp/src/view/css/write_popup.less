@@ -1,0 +1,53 @@
+.wrapper {
+  min-width: 250px;
+  margin: 20px;
+
+  .ta-editor {
+    min-height: 300px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+  }
+
+  textarea{
+    display: none !important;
+  }
+
+  hr {
+    margin: 0;
+  }
+
+  label {
+    width: 75px;
+    height: 20px;
+    text-align: right;
+    padding-right: 15px;
+    margin: 0;
+  }
+  textarea, input {
+    width: calc(~"100% - 95px");
+    padding-left: 15px;
+    border: none;
+    border-left: solid #DDD 1px;
+    resize: none;
+  }
+
+  .info {
+    width: 100%;
+    text-align: right;
+  }
+
+  h1 small {
+    font-size: 60%;
+  }
+
+  .btn.btn-default.ng-scope{
+    padding : 3px;
+  }
+}
+
+.md-dialog-is-showing {
+  max-height: none;
+}
+

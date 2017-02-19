@@ -1,0 +1,37 @@
+link(rel="stylesheet", href="/view/css/board_popup.css")
+
+
+.wrapper
+    h3 {{data.post_title}}
+    hr
+    .info
+        .time
+            h6 {{data.post_date.string}}
+
+    br
+    div(ng-bind-html='trustedHtml(data.post_content, data.post_images)', style='padding : 20px')
+    br
+    hr
+    .comment(ng-repeat='item in comment track by $index')
+        .comment-wrapper
+            span.fa.fa-user.icon(aria-hidden='true')
+            span.name {{item.user_id}} / {{item.comment_user_ip}}
+            span.name {{item.date.string}}
+            span.fa.fa-times.delete(ng-if='session.user.id == item.user_id', aria-hidden='true', ng-click='deleteComment($event, item)')
+            h6 {{item.comment_content}}
+    hr
+    .comment
+        label title
+        input(ng-model='data.newcomment.comment_title')
+        br
+        label comment
+        textarea(rows=3, ng-model='data.newcomment.comment_content')
+    hr
+    .info
+        md-button.md-raised.center(ng-show='admin', ng-click='delete($event, data)') Delete
+        md-button.md-raised.center(ng-click='like(data)') {{data.post_like}} Like
+        md-button.md-raised.center(ng-click='dislike(data)') {{data.post_dislike}} Dislike
+        md-button.md-raised.center(ng-click='submit(data)') Submit
+        md-button.md-raised.center(ng-click='cancel()') Cancel
+    br
+

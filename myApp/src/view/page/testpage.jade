@@ -1,0 +1,10 @@
+doctype html
+html(ng-app="app")
+    head
+        include ../../components/jade/header
+        script(src="{$ROOT}/view/js/index.js")
+        link(rel="stylesheet", href="{$ROOT}/view/css/listLayout.css")
+
+    body(ng-controller='ctrl', resize)
+        div
+            span Lorem ipsum dolor sit amet, consectetur adipiscing elit.

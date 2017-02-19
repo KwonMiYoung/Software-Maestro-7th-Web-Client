@@ -1,0 +1,20 @@
+link(rel="stylesheet", href="/view/css/write_popup.css")
+
+.wrapper
+    h3 카테고리 추가
+    hr
+    label meta_id
+    input(ng-model='add_category_input.key_id')
+    .unknown(ng-repeat='language in lang.kind track by $index')
+        label {{language}}
+        input(ng-model='add_category_input.value[language]')
+
+    hr
+    br
+    .info
+        md-button.md-raised(md-colors="{background : 'teal-900'}", md-colors-watch='false',ng-click='save()') Add
+        md-button.md-raised(md-colors="{background : 'teal-500'}", md-colors-watch='false',ng-click='cancel()') Cancel
+
+
+
+

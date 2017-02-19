@@ -1,0 +1,107 @@
+doctype html
+html(ng-app="app")
+    head
+        include ../../../components/jade/header
+        script(src="{$ROOT}/view/js/adminpage.js")
+        link(rel="stylesheet", href="{$ROOT}/view/css/index.css")
+
+
+        style.
+            .ghost {
+                z-index: 500;
+                display: block;
+                opacity: 1;
+                color: #646b88;
+                background-color: rgba(0, 179, 238, 0.15) !important;
+                border: 2px dashed #646b88 !important;
+            }
+
+            .category {
+                cursor: move;
+                cursor: -webkit-grabbing;
+            }
+
+    body(ng-controller='ctrl', resize)
+        .nav
+            .top-nav#topnav
+                span(ng-click='click.changeLang(kind)', ng-repeat='kind in lang.kind track by $index') {{kind}}
+
+
+            .title(ng-click='click.test()') {{lang.company[lang.lang]}}
+
+            .middle-nav#subnav
+                .sub-nav(id="{{item.key}}", ng-repeat='item in subnav.data track by $index') {{item.text[lang.lang]}}
+
+            .bottom-nav {{lang.copyright[lang.lang]}}
+        .admin-action-bar
+            .left
+                | 이 상단바는 관리자 기능을 위한 것으로서 실제 페이지에서는 보이지 않습니다.
+            .right.margin-left-10(ng-click='click.write($event)')
+                i.fa.fa-pencil-square-o
+                | &nbsp; 글쓰기
+            .right.margin-left-10(ng-click='click.addCategory($event)')
+                i.fa.fa-th-list
+                | &nbsp; 카테고리 추가
+            .right.margin-left-10(ng-click='click.saveLayout()')
+                i.fa.fa-upload
+                | &nbsp; 레이아웃 저장
+
+        .main
+            .row
+                #bigImage.col-lg-8.col-md-12
+                    img(src='http://upload2.inven.co.kr/upload/2015/10/14/bbs/i11489872296.jpg')
+            .row#categorylist
+                #firstlist.col-lg-4.col-md-6
+                    .category(id="{{data.post_id}}", ng-if='$index % responseListColumn == 0', ng-repeat='data in categorylist track by $index', ng-click='click.dialogOpen($event, data)')
+                        .category-image(ng-if='data.post_images !== undefined')
+                            img(src='{{data.post_images}}')
+                        .category-name {{data.category_id}}
+                        .category-line
+                        .category-title {{data.post_title}}
+                        .category-content(ng-bind-html='trustedHtml(data.post_content)')
+                #secondlist.col-lg-4.col-md-6
+                    .category(id="{{data.post_id}}", ng-if='$index % responseListColumn == 1', ng-repeat='data in categorylist track by $index', ng-click='click.dialogOpen($event, data)')
+                        .category-image(ng-if='data.post_images !== undefined')
+                            img(src='{{data.post_images}}')
+                        .category-name {{data.category_id}}
+                        .category-line
+                        .category-title {{data.post_title}}
+                        .category-content(ng-bind-html='trustedHtml(data.post_content)')
+                #thirdlist.col-lg-4.col-md-6
+                    .category(id="{{data.post_id}}", ng-if='$index % responseListColumn == 2', ng-repeat='data in categorylist track by $index', ng-click='click.dialogOpen($event, data)')
+                        .category-image(ng-if='data.post_images !== undefined')
+                            img(src='{{data.post_images}}')
+                        .category-name {{data.category_id}}
+                        .category-line
+                        .category-title {{data.post_title}}
+                        .category-content(ng-bind-html='trustedHtml(data.post_content)')
+
+
+            script.
+                var option = {
+                    main : {
+                        ghostClass: 'ghost',
+                        group: "main",
+                        sort: true,
+                        animation: 300
+                    },
+                    topnav: {
+                        ghostClass: 'ghost',
+                        group: "topnav",
+                        sort: true,
+                        animation: 300
+                    },
+                    subnav: {
+                        ghostClass: 'ghost',
+                        group: "subnav",
+                        sort: true,
+                        animation: 300
+                    }
+                };
+                Sortable.create(topnav, option.subnav);
+                Sortable.create(subnav, option.topnav);
+                Sortable.create(firstlist, option.main);
+                Sortable.create(secondlist, option.main);
+                Sortable.create(thirdlist, option.main);
+                Sortable.create(bigImage, option.main);
+

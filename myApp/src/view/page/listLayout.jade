@@ -1,0 +1,175 @@
+doctype html
+html(ng-app="app")
+    head
+        include ../../components/jade/header
+        script(src="{$ROOT}/view/js/index.js")
+        link(rel="stylesheet", href="{$ROOT}/view/css/listLayout.css")
+
+    body(ng-controller='ctrl', resize)
+            nav.container-fluid.nav
+                .container.cf
+                    .brand
+                        a(href='#splash') {{lang.lang.company}}
+                            //img(src='../images/logo.png', height='48px')
+                    i.fa.fa-bars.nav-toggle
+                    ul
+                        li
+                            a(href='#splash') {{lang.lang.Home}}
+                        li
+                            a(href='#about') {{lang.lang.Aboutus}}
+                        li
+                            a(href='#people') {{lang.lang.People}}
+                        li
+                            a(href='#portfolio') {{lang.lang.Portfolio}}
+                        li
+                            a(href='#feedback') {{lang.lang.QnA}}
+            #splash.container-fluid.splash
+                .container
+                    h1 Finecom
+                    span.lead Lorem ipsum dolor sit amet
+                    span.continue
+                        a(href='#about')
+                            i.fa.fa-angle-down
+            #about.container-fluid.intro
+                .container
+                    h2 About Finecom
+                    p
+                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias ratione impedit soluta amet quas saepe temporibus
+                        a(href='#') eum reprehenderit
+                        |  voluptas! A nihil adipisci itaque quos quo dolorum consequuntur iusto facere quaerat, excepturi quod, necessitatibus aliquid quae est qui, aut in assumenda animi tempora debitis. Beatae, veritatis, delectus. Repellat dolore, molestias nam.
+            #people.container-fluid.features
+                .container.cf
+                    .title Peoples
+                    .row
+                        .col-lg-4.col-md-6
+                            .category(ng-if='$index % responseListColumn == 0', ng-repeat='data in peoples track by $index')
+                                img.border-radius(src='{{data.image}}', alt='')
+                                h3.name {{data.name}}
+                                .major
+                                    span(ng-repeat='major in data.major track by $index') {{major}}
+                                .part
+                                    span(ng-repeat='part in data.part track by $index') {{part}}
+                                .message {{data.message}}
+
+                        .col-lg-4.col-md-6
+                            .category(ng-if='$index % responseListColumn == 1', ng-repeat='data in peoples track by $index')
+                                img.border-radius(src='{{data.image}}', alt='')
+                                h3.name {{data.name}}
+                                .major
+                                    span(ng-repeat='major in data.major track by $index') {{major}}
+                                .part
+                                    span(ng-repeat='part in data.part track by $index') {{part}}
+                                .message {{data.message}}
+
+                        .col-lg-4.col-md-6
+                            .category(ng-if='$index % responseListColumn == 2', ng-repeat='data in peoples track by $index')
+                                img.border-radius(src='{{data.image}}', alt='')
+                                h3.name {{data.name}}
+                                .major
+                                    span(ng-repeat='major in data.major track by $index') {{major}}
+                                .part
+                                    span(ng-repeat='part in data.part track by $index') {{part}}
+                                .message {{data.message}}
+            #portfolio.container-fluid.features
+                .container.cf
+                    .title Portfolio
+                    .row
+                        .col-lg-4.col-md-6
+                            .category(ng-if='$index % responseListColumn == 0', ng-repeat='data in categorylist track by $index', ng-click='click.dialogOpen($event, data)')
+                                .category-image(ng-if='data.post_images !== undefined')
+                                    img(src='{{data.post_images}}')
+                                .category-name {{data.category_id}}
+                                .category-line
+                                .category-title {{data.post_title}}
+                                .category-content(ng-bind-html='trustedHtml(data.post_content)')
+                        .col-lg-4.col-md-6
+                            .category(ng-if='$index % responseListColumn == 1', ng-repeat='data in categorylist track by $index', ng-click='click.dialogOpen($event, data)')
+                                .category-image(ng-if='data.post_images !== undefined')
+                                    img(src='{{data.post_images}}')
+                                .category-name {{data.category_id}}
+                                .category-line
+                                .category-title {{data.post_title}}
+                                .category-content(ng-bind-html='trustedHtml(data.post_content)')
+                        .col-lg-4.col-md-6
+                            .category(ng-if='$index % responseListColumn == 2', ng-repeat='data in categorylist track by $index', ng-click='click.dialogOpen($event, data)')
+                                .category-image(ng-if='data.post_images !== undefined')
+                                    img(src='{{data.post_images}}')
+                                .category-name {{data.category_id}}
+                                .category-line
+                                .category-title {{data.post_title}}
+                                .category-content(ng-bind-html='trustedHtml(data.post_content)')
+
+
+
+
+    #feedback.container-fluid.contact
+                .container
+                    form
+                        h2 Feedback
+                        input#name.full-half(type='text', placeholder='Name', name='name')
+                        input#email.full-half(type='email', placeholder='Email', name='email')
+                        input#subject(type='text', placeholder='Subject', name='subject')
+                        textarea#message(placeholder='Message', name='message')
+                        //input(type='submit', value='Send')
+                        .button Send
+            footer.container-fluid.footer
+                .container
+                    span(style='font-size: 16px;') {{lang.lang.copyright}}
+
+
+            script.
+                $("nav ul").hide();
+
+                $(".nav-toggle").click(function () {
+                    $("nav ul").slideToggle("medium");
+                });
+
+                $("nav ul li a, .brand a").click(function () {
+                    $("nav ul").hide();
+                });
+
+                $(function () {
+                    var navHeight = $("nav").outerHeight();
+                    $('a[href*="#"]:not([href="#"])').click(function () {
+                        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                            var target = $(this.hash);
+                            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                            if (target.length) {
+                                $('html, body').animate({
+                                    scrollTop: target.offset().top - navHeight
+                                }, 1000);
+                                return false;
+                            }
+                        }
+                    });
+                });
+
+                var viewHeight = window.innerHeight;
+                var navigation = $('nav');
+
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() > (viewHeight - 175)) { //edit for nav height
+                        navigation.addClass('sticky');
+                    } else {
+                        navigation.removeClass('sticky');
+                    }
+                });
+
+                function centerSplash() {
+                    var navHeight = $("nav").outerHeight();
+                    var splashHeight = $(".splash .container").height();
+                    var remainingHeight = window.innerHeight - splashHeight - navHeight;
+
+                    $(".splash .container").css({
+                        "padding-top": remainingHeight / 2,
+                        "padding-bottom": remainingHeight / 2
+                    });
+                }
+
+                $(document).ready(function () {
+                    centerSplash();
+                });
+
+                $(window).resize(function () {
+                    centerSplash();
+                });
