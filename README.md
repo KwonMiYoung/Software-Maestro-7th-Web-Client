@@ -1,2 +1,2 @@
 # Software-Maestro-7th-Web-Client
-nodemailer 사용하기 위해서는 터미널에서 npm install nodemailer@0.7.1 해야 합니다.
+nodemailer 사용하기 위해서는 터미널에서 npm install nodemailer@0.7.1 해야 합니다.경로 Software-Maestro-7th-Web-Client/myApp/controller/express/api/user/signup.js 를 수정했으며 email.js 와 signup.js 의 연동으로 작동하는 것으로 판단되는데 저는 signup.js에서 다 처리하게 나은것 같아서 email.js를 사용하지 않았습니다. 그리고 signup.js에서 var post{} 부분에서 username, email, password 등 사용자 정보를 입력받는것 같아 email 변수를 email 수신 주소로 설정해 놓았습니다. req.sql 이런 부분은 email.js를 사용할 경우 연동되는 부분 같고 어떻게 쓰이는지 이해가 부족하여 지우지 않고 우선 두었습니다. email.js 와 email.js와 연동되는 signup.js 부분 코드 삭제 바랍니다.
